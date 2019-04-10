@@ -1,29 +1,93 @@
 $(document).ready(function () {
+
+
+
     //array of strings called topic,related to theme of feelings   
-    var topics = ["happy", "funky", "sassy", "grouchy", "scurred", "trapped", "bloated", "humble", "exhausted", "blessed"];
+
+    var topics = ["happy", "funky", "silly", "grouchy", "scurred", "trapped", "bloated", "humble", "exhausted", "blessed"];
 
     // var APIKey = UDOUEhJt8r8kYBAfWQViI71eu1rmbYMq;
-    //create a function for displaying the topics feelings
 
-    function renderBtn() {
 
-        //loop through topics array to create buttons on HTML
+    //loop through topics array to create buttons on HTML
 
-        for (var i = 0; i < topics.length; i++) {
+    for (var i = 0; i < topics.length; i++) {
 
-            var a = $("<button>");
+        var f = $("<button>");
 
-            // Adding a class
-            a.addClass("feelings");
-            // Adding a data-attribute with a value of the topics at index i
-            a.attr("data-name", topics[i]);
-            // Providing the button's text with a value of the topics at index i
-            a.text(topics[i]);
-            // Adding the button to the HTML
-            $("#topic-btn").append(a);
-        }
+        // Adding a class
+        f.addClass("feelings");
+        // Adding a data-attribute with a value of the topics at index i
+        f.attr("data-name", topics[i]);
+        // Providing the button's text with a value of the topics at index i
+        f.text(topics[i]);
+        // Adding the button to the HTML
+        $("#topic-btn").append(f);
+
     }
 
-    renderBtn();
+    //Adding event on click of button
+    $("button").on("click", function () {
 
+        //Grab and Store the topic-btn property
+        var feeling = $(this).attr("data-name");
+        //Constructing the queryURL using the feeling name
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+            feeling + "&api_key=UDOUEhJt8r8kYBAfWQViI71eu1rmbYMq&limit=10";
+
+        // Performing an AJAX request with the queryURL
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            // After data comes back from the request
+
+            .then(function (response) {
+                console.log(queryURL);
+                //Looping over every result item
+                var results = response.data;
+                for (var i = 0; i < results.length; i++) {
+
+                    // Only taking action if the photo has an appropriate rating
+                    if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                        // Creating a div for the gif
+                        var gifDiv = $("<div>");
+
+                        // Storing the result item's rating
+                        var rating = results[i].rating;
+
+                        // Creating a paragraph tag with the result item's rating
+                        var p = $("<p>").text("Rating: " + rating);
+
+
+                        // Creating an image tag
+                        var feelingImage = $("<img>");
+
+                        // Giving the image tag an src attribute of a proprty pulled off the
+                        // result item
+                        feelingImage.attr("src", results[i].images.fixed_height_still.url);
+
+                        // Appending the paragraph and personImage we created to the "gifDiv" div we created
+                        gifDiv.append(p);
+                        gifDiv.append(feelingImage);
+
+                        // Prepending the gifDiv to the "#gif-insert" div in the HTML
+                        $("#gif-insert").prepend(gifDiv);
+
+                        // feelingImage.on("click", function () {
+                        //     if (feelingImage.attr("src", results[i].images.fixed_height.url);
+                        //     // Appending the paragraph and personImage we created to the "gifDiv" div we created
+                        //     gifDiv.prepend(p);
+                        //     gifDiv.prepend(feelingImage);
+
+                        //     // Prepending the gifDiv to the "#gif-insert" div in the HTML
+                        //     $("#gif-insert").append(gifDiv);
+
+
+                        // });
+
+                    }
+                }
+            });
+    });
 });
