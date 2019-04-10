@@ -27,7 +27,7 @@ $(document).ready(function () {
     }
 
     //Adding event on click of button
-    $("button").on("click", function () {
+    $(document).on("click", "button", function () {
 
         //Grab and Store the topic-btn property
         var feeling = $(this).attr("data-name");
@@ -74,20 +74,21 @@ $(document).ready(function () {
                         // Prepending the gifDiv to the "#gif-insert" div in the HTML
                         $("#gif-insert").prepend(gifDiv);
 
-                        // feelingImage.on("click", function () {
-                        //     if (feelingImage.attr("src", results[i].images.fixed_height.url);
-                        //     // Appending the paragraph and personImage we created to the "gifDiv" div we created
-                        //     gifDiv.prepend(p);
-                        //     gifDiv.prepend(feelingImage);
-
-                        //     // Prepending the gifDiv to the "#gif-insert" div in the HTML
-                        //     $("#gif-insert").append(gifDiv);
-
-
-                        // });
-
                     }
                 }
             });
+
+        $(document).on("click", "gif-insert", function () {
+            var state = $(this).attr("data-state");
+
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+            }
+        });
+
     });
 });
