@@ -1,0 +1,78 @@
+@font-face {
+    font-family: "whale";
+    src:url("../images/Whale\ I\ Tried\ -\ TTF.ttf") format("truetype");
+
+}
+/* html {
+    background: src("https://www.videvo.net/video/disco-lights-background-loop-2/1684/");
+    background-size: cover; */
+
+
+body {
+    font-family: "whale";
+    color: #f65a31;
+    background-color: #a1bfdb;
+}
+
+#container {
+    width: 840px;
+    margin: 0 auto;
+    padding: 3px;
+}
+
+.clearfix::after {
+    display: block;
+    clear  : both;
+}
+h1 {
+    font-size: 128px;
+    text-align: center;
+    text-shadow  : 0 4px 8px #fff,
+                   0 18px 22px #f65a31;
+
+}
+.gif {
+height: 150px;
+width: 250px;
+font-size: 16px;
+text-align: center;
+border: solid 3px #f65a31;
+margin: 10px;
+float: left;
+position: relative;
+
+
+
+
+}
+#left-pane {
+    float: left;
+    
+    width: 60%;
+}
+
+#right-pane {
+    float: right;
+    width: 33%;
+}
+
+
+#topic-btn {
+     
+    position: relative;
+    display: block;
+}
+
+p {
+    float: left;
+position: relative;
+
+}
+
+button {
+    float     : left;
+    margin    : 0 3% 3% 0;
+    border    : 1px solid gray;
+    padding   : 3%;
+    
+}

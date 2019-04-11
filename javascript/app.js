@@ -28,6 +28,7 @@ $(document).ready(function () {
 
     //Adding event on click of button
     $(document).on("click", "button", function () {
+        event.preventDefault();
 
         //Grab and Store the topic-btn property
         var feeling = $(this).attr("data-name");
@@ -39,46 +40,70 @@ $(document).ready(function () {
         $.ajax({
             url: queryURL,
             method: "GET"
-        })
+
             // After data comes back from the request
 
-            .then(function (response) {
-                console.log(queryURL);
-                //Looping over every result item
-                var results = response.data;
-                for (var i = 0; i < results.length; i++) {
+        }).then(function (response) {
+            console.log(queryURL);
+            //Looping over every result item
+            var results = response.data;
+            for (var i = 0; i < results.length; i++) {
 
-                    // Only taking action if the photo has an appropriate rating
-                    if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-                        // Creating a div for the gif
-                        var gifDiv = $("<div>");
+                // Only taking action if the photo has an appropriate rating
+                if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                    // Creating a div for the gif
+                    var ratingDiv = $("<div>");
 
-                        // Storing the result item's rating
-                        var rating = results[i].rating;
+                    // Storing the result item's rating
+                    var rating = results[i].rating;
 
-                        // Creating a paragraph tag with the result item's rating
-                        var p = $("<p>").text("Rating: " + rating);
+                    // Creating a paragraph tag with the result item's rating
+                    var pRating = $("<p>").text("Rating: " + rating);
+
+                    var titleDiv = $("<div>");
+
+                    // Storing the result item's rating
+                    var title = results[i].title;
+
+                    // Creating a paragraph tag with the result item's rating
+                    var pTitle = $("<p>").text("Title: " + title);
 
 
-                        // Creating an image tag
-                        var feelingImage = $("<img>");
+                    // Creating an image tag
+                    var feelingImage = $("<img>");
 
-                        // Giving the image tag an src attribute of a proprty pulled off the
-                        // result item
-                        feelingImage.attr("src", results[i].images.fixed_height_still.url);
+                    // Giving the image tag an src attribute of a proprty pulled off the
+                    // result item
+                    feelingImage.attr("src", results[i].images.fixed_width_still.url);
+                    feelingImage.addClass("gif");
 
-                        // Appending the paragraph and personImage we created to the "gifDiv" div we created
-                        gifDiv.append(p);
-                        gifDiv.append(feelingImage);
+                    //animating and pausing gifs
+                    feelingImage.attr("data-still", results[i].images.fixed_width_still.url);
+                    feelingImage.attr("data-animate", results[i].images.fixed_width.url);
+                    feelingImage.attr("data-state", "still");
 
-                        // Prepending the gifDiv to the "#gif-insert" div in the HTML
-                        $("#gif-insert").prepend(gifDiv);
+                    // Appending the paragraph and personImage we created to the "ratingfDiv" div we created
+                    ratingDiv.append(pRating);
+                    ratingDiv.append(feelingImage);
+                    titleDiv.append(pTitle);
+                    titleDiv.append(feelingImage);
 
-                    }
+
+
+
+                    // Prepending the ratingDiv to the "#gif-insert" div in the HTML
+                    $("#gif-insert").prepend(ratingDiv);
+                    $("#gif-insert").prepend(titleDiv);
+
+
+
                 }
-            });
+            }
+        })
 
-        $(document).on("click", "gif-insert", function () {
+
+        $(document).on("click", "#gif-insert", function () {
+            event.preventDefault();
             var state = $(this).attr("data-state");
 
             if (state === "still") {
@@ -88,7 +113,8 @@ $(document).ready(function () {
                 $(this).attr("src", $(this).attr("data-still"));
                 $(this).attr("data-state", "still");
             }
-        });
+        })
 
     });
+
 });
