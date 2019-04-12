@@ -11,9 +11,9 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script> -->
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -40,24 +40,33 @@
             </div>
         </div>
     </header> -->
-
     <div class="container">
-        <h1>Gif.Tastic</h1>
+        <div class="jumbotron">
+            <h1 class="display-4">GIFTastic</h1>
+            <div class="my-4">
 
-        <div id="leftPane" class="clearfix">
-            <div id="topic-btn">
-                <h2>GIFs (click to play)</h2>
-                <div id="gif-insert"></div>
+                <p class="lead">Click on a Feeling GIF button to view OR search your own feelings by typing one in the
+                    box below!</p>
             </div>
+
         </div>
 
 
-        <div id="rightPane" class="clearfix">
-            <div id="search">
-                <h2>Search</h2>
-                <input type="text" id="query">
-                <div id="button_search">GIF!</div>
+
+        <div class="row" id="leftPane" class="clearfix">
+            <div id="topic-btn">
+                <h2>Feeling GIFs (click to play)</h2>
             </div>
+
+            <div id="search" class="clearfix">
+                <h2>Search</h2>
+                <input type="text" id="query"></input>
+                <div id="button_search">GIF!</div>
+                <div class="row" id="gif-insert"></div>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 
