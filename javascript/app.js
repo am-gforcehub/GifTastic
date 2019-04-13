@@ -7,27 +7,14 @@ $(document).ready(function () {
     var topics = ["happy", "funky", "silly", "grouchy", "scurred", "trapped", "bloated", "humble", "exhausted", "blessed"];
 
     // var APIKey = UDOUEhJt8r8kYBAfWQViI71eu1rmbYMq;
+    //function to get buttons 
 
 
-    //loop through topics array to create buttons on HTML
-
-    for (var i = 0; i < topics.length; i++) {
-
-        var f = $("<button>");
-
-        // Adding a class
-        f.addClass("feelings");
-        // Adding a data-attribute with a value of the topics at index i
-        f.attr("data-name", topics[i]);
-        // Providing the button's text with a value of the topics at index i
-        f.text(topics[i]);
-        // Adding the button to the HTML
-        $("#topic-btn").append(f);
-
-    }
 
     //Adding event on click of button
-    $(document).on("click", "button", function () {
+    function getFeelings() {
+        // $(document).on("click", "button", function () {
+
         event.preventDefault();
 
         //Grab and Store the topic-btn property
@@ -59,6 +46,7 @@ $(document).ready(function () {
 
                     // Creating a paragraph tag with the result item's rating
                     var pRating = $("<p>").text("Rating: " + rating);
+                    pRating.addClass("pRating");
 
                     var titleDiv = $("<div>");
 
@@ -67,6 +55,7 @@ $(document).ready(function () {
 
                     // Creating a paragraph tag with the result item's rating
                     var pTitle = $("<p>").text("Title: " + title);
+                    pTitle.addClass("pTitle");
 
 
                     // Creating an image tag
@@ -82,39 +71,67 @@ $(document).ready(function () {
                     feelingImage.attr("data-animate", results[i].images.fixed_width.url);
                     feelingImage.attr("data-state", "still");
 
-                    // Appending the paragraph and personImage we created to the "ratingfDiv" div we created
+                    // Appending the paragraph and personImage we created to the "ratingfDiv" and "titleDiv" div created
                     ratingDiv.append(pRating);
                     ratingDiv.append(feelingImage);
                     titleDiv.append(pTitle);
                     titleDiv.append(feelingImage);
 
-
-
-
                     // Prepending the ratingDiv to the "#gif-insert" div in the HTML
-                    $("#gif-insert").prepend(ratingDiv);
-                    $("#gif-insert").prepend(titleDiv);
-
-
+                    $("#gif-insert").append(ratingDiv);
+                    $("#gif-insert").append(titleDiv);
 
                 }
             }
-        })
+        });
+    }
+    function renderButton() {
+        $("#topic-btn").empty();
+
+        //loop through topics array to create buttons on HTML
+
+        for (var i = 0; i < topics.length; i++) {
+
+            var f = $("<button>");
+
+            // Adding a class
+            f.addClass("feelings");
+            // Adding a data-attribute with a value of the topics at index i
+            f.attr("data-name", topics[i]);
+            // Providing the button's text with a value of the topics at index i
+            f.text(topics[i]);
+            // Adding the button to the HTML
+            $("#topic-btn").append(f);
+
+        }
+    }
 
 
-        $(document).on("click", "#gif-insert", function () {
-            event.preventDefault();
-            var state = $(this).attr("data-state");
+    $("#add-feeling").on("click", function (event) {
+        event.preventDefault();
+        var emotion = $("#feeling-input").val().trim();
+        console.log(emotion);
+        topics.push(emotion);
+        renderButton();
+    })
 
-            if (state === "still") {
-                $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("data-state", "animate");
-            } else {
-                $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("data-state", "still");
-            }
-        })
+    $(document).on("click", ".gif-insert", function () {
+        // $(document).on("click", "gif-insert", function () {
+        // function animateGif() {
 
+        event.preventDefault();
+        var state = $(this).attr("data-state");
+
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
     });
+
+    renderButton();
+    $(document).on("click", "#gif-insert", getFeelings);
 
 });

@@ -28,54 +28,34 @@
 </head>
 
 <body>
-    <!-- <header>
-        <div class="overlay"></div>
-        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-            <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
-        </video>
-        <div class="container h-100">
-            <div class="d-flex h-100 text-center align-items-center">
-                <div class="w-100 text-white">
-                    <h1 class="display-3">Video Header</h1>
-                    <p class="lead mb-0">With HTML5 Video and Bootstrap 4</p>
-                </div>
-            </div>
-        </div>
-    </header> -->
-    <!-- <div class="container"> -->
     <div class="jumbotron">
         <video id="main-video" loop="true" autoplay="true" muted="true" preload="true">
             <source src="assets/images/DiscoLights2Videvo.mov">
         </video>
-        <!-- <div class="container"> -->
         <h1 class="display-4">GIF.Tastic</h1>
-        <div class="my-4">
 
-            <p class="lead">Click on a Feeling GIF button to view OR search your own feelings by typing one in
-                the
-                box below!</p>
-        </div>
-
-    </div>
+        <p class="lead">Click on a feeling GIF button to view some GIFs OR if you feel the need to search your own
+            feelings - type one in
+            the
+            box below!</p>
     </div>
 
+    <div class="row">
+        <div class="col-xs-12.col-sm-12.col-md-12.col-lg-12" id="topic-btn">
 
 
+            <h2>Feeling GIFs (click to play)</h2><br><br>
 
-    <div class="row" id="leftPane" class="clearfix">
-        <div id="topic-btn">
-            <h2>Feeling GIFs (click to play)</h2>
-        </div>
-
-        <div id="search" class="clearfix">
-            <h2>Search</h2>
-            <input type="text" id="query"></input>
-            <div id="button_search">GIF!</div>
-            <div class="row" id="gif-insert"></div>
         </div>
     </div>
-
+    <div class="row">
+        <form id="search">
+            <label for="feeling-input" class="inputLabel">Add a feeling</label>
+            <input type="text" id="feeling-input"><br>
+            <input id="add-feeling" type="submit" value="Submit">
+        </form>
     </div>
+    <div class="col-xs-12.col-sm-12.col-md-12.col-lg-12" id="gif-insert"></div>
 
 </body>
 
