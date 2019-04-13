@@ -7,12 +7,37 @@ $(document).ready(function () {
     var topics = ["happy", "funky", "silly", "grouchy", "scurred", "trapped", "bloated", "humble", "exhausted", "blessed"];
 
     // var APIKey = UDOUEhJt8r8kYBAfWQViI71eu1rmbYMq;
-    //function to get buttons 
+    renderButton();
 
+    $(document).on("click", "#add-feeling", function (event) {
+        event.preventDefault();
+        $("#topic-btn").empty();
 
+        //loop through topics array to create buttons on HTML
 
+        renderButton();
+    });
+    function renderButton() {
+
+        for (var i = 0; i < topics.length; i++) {
+
+            var f = $("<button>");
+
+            // Adding a class
+            f.addClass("feelings");
+            // Adding a data-attribute with a value of the topics at index i
+            f.attr("data-name", topics[i]);
+            // Providing the button's text with a value of the topics at index i
+            f.text(topics[i]);
+            // Adding the button to the HTML
+            $("#topic-btn").append(f);
+
+        }
+    }
     //Adding event on click of button
-    function getFeelings() {
+    // function getFeelings() {
+    $(document).on("click", ".feelings", function () {
+
         // $(document).on("click", "button", function () {
 
         event.preventDefault();
@@ -78,44 +103,28 @@ $(document).ready(function () {
                     titleDiv.append(feelingImage);
 
                     // Prepending the ratingDiv to the "#gif-insert" div in the HTML
-                    $("#gif-insert").append(ratingDiv);
-                    $("#gif-insert").append(titleDiv);
+                    $("#gif-insert").prepend(ratingDiv);
+                    $("#gif-insert").prepend(titleDiv);
 
                 }
             }
         });
-    }
-    function renderButton() {
-        $("#topic-btn").empty();
 
-        //loop through topics array to create buttons on HTML
-
-        for (var i = 0; i < topics.length; i++) {
-
-            var f = $("<button>");
-
-            // Adding a class
-            f.addClass("feelings");
-            // Adding a data-attribute with a value of the topics at index i
-            f.attr("data-name", topics[i]);
-            // Providing the button's text with a value of the topics at index i
-            f.text(topics[i]);
-            // Adding the button to the HTML
-            $("#topic-btn").append(f);
-
-        }
-    }
+    });
+    // renderButton(topics);
 
 
-    $("#add-feeling").on("click", function (event) {
-        event.preventDefault();
-        var emotion = $("#feeling-input").val().trim();
-        console.log(emotion);
-        topics.push(emotion);
-        renderButton();
-    })
 
-    $(document).on("click", ".gif-insert", function () {
+    // $("#add-feeling").on("click", function (event) {
+    //     event.preventDefault();
+    //     var emotion = $("#feeling-input").val().trim();
+    //     console.log(emotion);
+    //     topics.push(emotion);
+
+    //     renderButton(topics);
+    // })
+
+    $(document).on("click", ".gif", function () {
         // $(document).on("click", "gif-insert", function () {
         // function animateGif() {
 
@@ -123,15 +132,16 @@ $(document).ready(function () {
         var state = $(this).attr("data-state");
 
         if (state === "still") {
+            console.log("state is still");
+
             $(this).attr("src", $(this).attr("data-animate"));
             $(this).attr("data-state", "animate");
         } else {
+            console.log("state != still");
             $(this).attr("src", $(this).attr("data-still"));
             $(this).attr("data-state", "still");
         }
     });
 
-    renderButton();
-    $(document).on("click", "#gif-insert", getFeelings);
 
 });
