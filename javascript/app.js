@@ -7,11 +7,19 @@ $(document).ready(function () {
     var topics = ["happy", "funky", "silly", "grouchy", "scurred", "trapped", "bloated", "humble", "exhausted", "blessed"];
 
     // var APIKey = UDOUEhJt8r8kYBAfWQViI71eu1rmbYMq;
+
     renderButton();
 
     $(document).on("click", "#add-feeling", function (event) {
         event.preventDefault();
+
         $("#topic-btn").empty();
+
+        // This line grabs the input from the textbox
+        var topic = $("#feeling-input").val().trim();
+
+        // Adding the feeling from the textbox to our array
+        topics.push(topic);
 
         //loop through topics array to create buttons on HTML
 
@@ -35,15 +43,13 @@ $(document).ready(function () {
         }
     }
     //Adding event on click of button
-    // function getFeelings() {
     $(document).on("click", ".feelings", function () {
-
-        // $(document).on("click", "button", function () {
 
         event.preventDefault();
 
         //Grab and Store the topic-btn property
         var feeling = $(this).attr("data-name");
+
         //Constructing the queryURL using the feeling name
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             feeling + "&api_key=UDOUEhJt8r8kYBAfWQViI71eu1rmbYMq&limit=10";
@@ -64,6 +70,7 @@ $(document).ready(function () {
                 // Only taking action if the photo has an appropriate rating
                 if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
                     // Creating a div for the gif
+
                     var ratingDiv = $("<div>");
 
                     // Storing the result item's rating
@@ -72,8 +79,6 @@ $(document).ready(function () {
                     // Creating a paragraph tag with the result item's rating
                     var pRating = $("<p>").text("Rating: " + rating);
                     pRating.addClass("pRating");
-
-                    var titleDiv = $("<div>");
 
                     // Storing the result item's rating
                     var title = results[i].title;
@@ -97,36 +102,20 @@ $(document).ready(function () {
                     feelingImage.attr("data-state", "still");
 
                     // Appending the paragraph and personImage we created to the "ratingfDiv" and "titleDiv" div created
-                    ratingDiv.append(pRating);
+                    ratingDiv.append(pTitle);
                     ratingDiv.append(feelingImage);
-                    titleDiv.append(pTitle);
-                    titleDiv.append(feelingImage);
+                    ratingDiv.append(pRating);
 
                     // Prepending the ratingDiv to the "#gif-insert" div in the HTML
                     $("#gif-insert").prepend(ratingDiv);
-                    $("#gif-insert").prepend(titleDiv);
 
                 }
             }
         });
 
     });
-    // renderButton(topics);
-
-
-
-    // $("#add-feeling").on("click", function (event) {
-    //     event.preventDefault();
-    //     var emotion = $("#feeling-input").val().trim();
-    //     console.log(emotion);
-    //     topics.push(emotion);
-
-    //     renderButton(topics);
-    // })
 
     $(document).on("click", ".gif", function () {
-        // $(document).on("click", "gif-insert", function () {
-        // function animateGif() {
 
         event.preventDefault();
         var state = $(this).attr("data-state");
