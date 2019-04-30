@@ -11,6 +11,7 @@ body {
     background-image: url("../images/wild_oliva.png");
     width: 90%;
     margin: 0 auto;
+    color: white;
 }
 
 
@@ -117,7 +118,7 @@ button {
 .inputLabel, h2 {
     font-size: 20px;
     font-family: "neon";
-    color: black;
+    /* color: black; */
     text-shadow:  0 1px 2px #fff,
               0 3px 5px #fb00be;
     
